@@ -1,0 +1,23 @@
+{
+  "name": "@selfcare/observability",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --declaration --emitDeclarationOnly --noEmit false --outDir dist",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:integration": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "pino": "10.3.1"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

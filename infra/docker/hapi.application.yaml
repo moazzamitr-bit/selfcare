@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:/data/hapi
+    username: sa
+    password: null
+    driverClassName: org.h2.Driver
+  jpa:
+    properties:
+      hibernate.dialect: ca.uhn.fhir.jpa.model.dialect.HapiFhirH2Dialect
+
+hapi:
+  fhir:
+    fhir_version: R4
+    allow_external_references: false
+    allow_multiple_delete: false
+    expunge_enabled: false
+    cors:
+      allow_Credentials: false
+      allowed_origin: []

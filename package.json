@@ -1,0 +1,32 @@
+{
+  "name": "selfcare-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:integration": "turbo test:integration",
+    "e2e": "playwright test",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:integration && pnpm build",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.61.1",
+    "@types/node": "26.1.1",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.2.10",
+    "prettier": "3.9.5",
+    "turbo": "2.10.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.64.0",
+    "vitest": "4.1.10"
+  }
+}

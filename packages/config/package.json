@@ -1,0 +1,21 @@
+{
+  "name": "@selfcare/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig/next": "./tsconfig.next.json",
+    "./tsconfig/service": "./tsconfig.service.json"
+  },
+  "scripts": {
+    "build": "tsc --declaration --emitDeclarationOnly --noEmit false --outDir dist",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:integration": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

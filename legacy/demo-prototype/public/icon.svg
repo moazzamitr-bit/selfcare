@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="همراه سلامت خانواده">
+  <rect width="128" height="128" rx="28" fill="#D91F26"/>
+  <path d="M32 44c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v22c0 8.8-7.2 16-16 16H58L42 98V82h6c-8.8 0-16-7.2-16-16V44Z" fill="#fff"/>
+  <path d="M64 42v28M50 56h28" stroke="#D91F26" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,96 @@
+name: selfcare-foundation
+
+services:
+  postgres:
+    image: postgis/postgis:18-3.6
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-selfcare}
+      POSTGRES_USER: ${POSTGRES_USER:-selfcare}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
+      PGDATA: /var/lib/postgresql/18/docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [foundation]
+
+  redis:
+    image: redis:8.8.0-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [foundation]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.6.3
+    command: ["start-dev", "--health-enabled=true"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-local-development-only}
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000"]
+      interval: 15s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    networks: [foundation]
+
+  minio:
+    image: minio/minio:RELEASE.2025-10-15T17-29-55Z
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-local-development-only}
+    ports:
+      - "9001:9001"
+      - "9002:9000"
+    volumes:
+      - minio-data:/data
+    networks: [foundation]
+
+  hapi-fhir:
+    image: hapiproject/hapi:v8.10.0
+    environment:
+      spring.config.location: file:///app/config/application.yaml
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./hapi.application.yaml:/app/config/application.yaml:ro
+    networks: [foundation]
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.155.0
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ../monitoring/otel-collector.yaml:/etc/otelcol-contrib/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "13133:13133"
+    healthcheck:
+      test: ["CMD", "/otelcol-contrib", "components"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks: [foundation]
+
+networks:
+  foundation:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  minio-data:
