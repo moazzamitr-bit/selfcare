@@ -1,0 +1,16 @@
+packages:
+  - "apps/*"
+  - "services/*"
+  - "packages/*"
+
+allowBuilds:
+  "@scarf/scarf": false
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - "@nestjs/swagger@11.4.6"
+
+onlyBuiltDependencies:
+  - "@nestjs/core"
