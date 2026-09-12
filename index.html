@@ -39,4 +39,59 @@
     document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go)});
     const qs=[{q:'What is your biggest skin concern?',a:['Dryness','Sensitivity','Uneven tone','Fine lines']},{q:'How does your hair feel after washing?',a:['Soft & balanced','Dry or frizzy','Oily quickly','Weak or damaged']},{q:'What does your body skin need most?',a:['Deep hydration','Gentle cleansing','Smoothing care','Daily freshness']},{q:'What is your daily care routine?',a:['Just the basics','Morning routine','Morning & evening','I need a fresh start']}];let qi=0,q=document.getElementById('question'),choices=document.getElementById('choices'),qNow=document.getElementById('qNow'),prog=document.querySelector('.progress i');function renderQ(){q.textContent=qs[qi].q;qNow.textContent=String(qi+1).padStart(2,'0');prog.style.width=((qi+1)*25)+'%';choices.innerHTML=qs[qi].a.map((x,i)=>`<button class="choice${i===0?' selected':''}"><i></i>${x}</button>`).join('')}choices.addEventListener('click',e=>{const c=e.target.closest('.choice');if(!c)return;choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));c.classList.add('selected')});renderQ();document.getElementById('nextQuestion').addEventListener('click',()=>{if(qi<3){qi++;renderQ()}else go('dashboard')});
     function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('show'),1700)}document.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('added');b.textContent=b.classList.contains('added')?'✓':'+';toast(b.classList.contains('added')?'Added to your routine':'Removed from routine')}));document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('done')));document.querySelectorAll('.tabs .tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');toast(b.textContent+' routine selected')}));document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const i=document.getElementById('chatInput'),x=i.value.trim();if(!x)return;document.getElementById('messages').insertAdjacentHTML('beforeend',`<div class="bubble user">${x.replace(/[<>]/g,'')}</div><div class="bubble ai">I’ll use your latest care profile to make this answer personal. For persistent or severe symptoms, speak with a qualified clinician.</div>`);i.value=''})
+  </script>
+  <script>
+    if(new URLSearchParams(location.search).get('lang')==='fa'){
+      document.documentElement.lang='fa';document.documentElement.dir='rtl';document.title='مشاور هوشمند مراقبت عبیدی‌کا';
+      const fa={
+        'AI care ecosystem':'اکوسیستم مراقبت هوشمند','Care, made personal.':'مراقبتی که برای تو ساخته شده',
+        'A warm intelligence layer for skin, hair and body care—turning everyday concerns into a clear, adaptive routine.':'یک همراه هوشمند برای مراقبت از پوست، مو و بدن؛ از شناخت نیازهای روزانه تا ساخت یک روتین دقیق و شخصی.',
+        'Core experiences':'تجربه اصلی','Care profile':'پروفایل مراقبتی','Guided journey':'مسیر هوشمند',
+        'AI care advisor is ready':'مشاور هوشمند آماده است','Discover what your skin, hair and body truly need':'کشف کن پوست، مو و بدنت واقعاً به چه چیزی نیاز دارند',
+        'Your personalized care journey, powered by thoughtful AI.':'مسیر مراقبتی شخصی تو، با همراهی هوش مصنوعی.',
+        'Start my care analysis':'شروع تحلیل مراقبتی من','Private by design':'کاملاً خصوصی','3 minute analysis':'تحلیل ۳ دقیقه‌ای',
+        'Care Advisor':'مشاور مراقبت','Building your personal profile':'در حال ساخت پروفایل شخصی تو',
+        'Question':'سؤال','Continue':'ادامه','Your answers remain private and can be changed anytime.':'پاسخ‌های تو محرمانه می‌مانند و هر زمان قابل تغییرند.',
+        'My care profile':'پروفایل مراقبتی من','Good morning, Sara':'صبح بخیر، سارا','Your skin is balanced':'پوستت متعادل است',
+        'Hydration is improving. Keep barrier support consistent today.':'رطوبت پوست رو به بهبود است. امروز هم از سد دفاعی پوستت محافظت کن.',
+        '↑ 4 points this week':'↑ ۴ امتیاز رشد در این هفته','Hydration':'رطوبت','Sensitivity':'حساسیت','Concerns':'نیازها',
+        'Your care dimensions':'ابعاد مراقبتی تو','Run new scan':'اسکن جدید','Skin':'پوست','Type':'نوع','Combination':'مختلط',
+        'Texture':'بافت','Smooth':'صاف','Barrier':'سد دفاعی','Good':'مناسب','Hair':'مو','Wavy':'موج‌دار','Damage':'آسیب',
+        'Medium':'متوسط','Body':'بدن','Need':'نیاز اصلی','Comfort':'راحتی','LIVE ANALYSIS':'تحلیل زنده',
+        'Hydration · 72':'رطوبت · ۷۲','Texture · Smooth':'بافت · صاف','Analysis complete':'تحلیل کامل شد',
+        'Healthy & balanced':'سالم و متعادل','AI verified':'تأیید هوش مصنوعی','Curated for your profile':'منتخب برای پروفایل تو',
+        'Your personalized routine':'روتین شخصی تو','Morning':'صبح','Evening':'شب','Hair care':'مراقبت مو','Body care':'مراقبت بدن',
+        '96% MATCH':'تطابق ۹۶٪','93% MATCH':'تطابق ۹۳٪','91% MATCH':'تطابق ۹۱٪',
+        'Gentle Barrier Cleanser':'شوینده ملایم محافظ','Cleans without stripping your natural moisture.':'پاکسازی بدون از بین بردن رطوبت طبیعی پوست.',
+        'Hydra Balance Cream':'کرم آبرسان متعادل‌کننده','Supports hydration in dry-prone areas.':'رطوبت‌رسانی هدفمند به نواحی مستعد خشکی.',
+        'Daily Shield SPF 50':'ضدآفتاب روزانه SPF 50','Lightweight daily protection for sensitive skin.':'محافظت سبک روزانه برای پوست حساس.',
+        'Why this routine fits you':'چرا این روتین برای تو مناسب است',
+        'Your scan shows good barrier health with localized dehydration. This routine protects that balance while adding moisture where needed.':'اسکن نشان می‌دهد سد دفاعی پوست سالم است اما در بعضی نواحی کم‌آبی وجود دارد. این روتین ضمن حفظ تعادل، رطوبت موردنیاز را تأمین می‌کند.',
+        'Abidika Care Coach':'مربی مراقبت عبیدی‌کا','Online · knows your profile':'آنلاین · آشنا با پروفایل تو',
+        'Good morning, Sara. How is your skin feeling after today’s cleanse?':'صبح بخیر سارا. پوستت بعد از شست‌وشوی امروز چه حسی دارد؟',
+        'My skin feels dry after washing.':'بعد از شست‌وشو پوستم خشک می‌شود.',
+        'Based on your profile, your skin needs gentler cleansing and barrier protection. Use lukewarm water and follow with your Hydra Balance Cream while skin is slightly damp.':'براساس پروفایلت، پوستت به پاکسازی ملایم‌تر و محافظت از سد دفاعی نیاز دارد. با آب ولرم صورتت را بشوی و وقتی پوست کمی مرطوب است از کرم آبرسان استفاده کن.',
+        'Profile insight':'تحلیل پروفایل','Your hydration score is 72, while your barrier remains healthy at 81. The goal is comfort—not a heavier routine.':'امتیاز رطوبت پوستت ۷۲ و سلامت سد دفاعی ۸۱ است. هدف، ایجاد حس راحتی است؛ نه سنگین‌تر کردن روتین.',
+        'Can I use actives?':'می‌توانم از اکتیوها استفاده کنم؟','Adjust my routine':'روتینم را اصلاح کن','Hair feels oily':'موهایم زود چرب می‌شود',
+        'Daily care journey':'مسیر مراقبت روزانه','Small rituals.':'عادت‌های کوچک.','Visible progress.':'تغییرات قابل‌دیدن.',
+        'September progress':'پیشرفت شهریور','Your skin improved 12%':'پوستت این ماه ۱۲٪ بهتر شده','Consistency is making the difference.':'تداوم، عامل اصلی این پیشرفت است.',
+        'Sep 01':'۱ شهریور','Sep 08':'۸ شهریور','Sep 15':'۱۵ شهریور','Today':'امروز','Today · 3 care missions':'امروز · ۳ مأموریت مراقبتی',
+        'Keep your rhythm':'ریتمت را حفظ کن','7 day':'۷ روز','streak':'پیوسته','Complete morning routine':'روتین صبح را کامل کن',
+        'Cleanse · hydrate · protect':'پاکسازی · آبرسانی · محافظت','Hydration check-in':'ثبت وضعیت رطوبت','Log how your skin feels':'حس امروز پوستت را ثبت کن',
+        'Evening barrier care':'مراقبت شبانه از سد پوستی','Scheduled for 9:30 PM':'زمان‌بندی‌شده برای ۹:۳۰ شب','Care points':'امتیاز مراقبت',
+        'Rewards unlocked':'پاداش فعال','Added to your routine':'به روتینت اضافه شد','Removed from routine':'از روتین حذف شد',
+        'Experience map':'نقشه تجربه','Welcome':'شروع','Warm AI introduction':'معرفی گرم مشاور هوشمند','Consultation':'مشاوره',
+        'Conversational profiling':'پروفایل‌سازی گفت‌وگومحور','Skin, hair and body signals':'شاخص‌های پوست، مو و بدن','AI analysis':'تحلیل هوشمند',
+        'Advanced visual intelligence':'تحلیل تصویری پیشرفته','Recommendations':'پیشنهاد محصولات','Explainable product matching':'تطبیق شفاف و قابل‌فهم',
+        'Care coach':'مربی مراقبت','Context-aware guidance':'راهنمایی متناسب با شرایط','Progress':'پیشرفت','Missions, streaks and rewards':'مأموریت، تداوم و پاداش',
+        'A single care profile connects diagnosis, recommendation, coaching and retention—so every interaction becomes more relevant over time.':'یک پروفایل واحد، تحلیل، پیشنهاد محصول، مربی هوشمند و مسیر پیشرفت را به هم متصل می‌کند؛ بنابراین هر تعامل به‌مرور دقیق‌تر و شخصی‌تر می‌شود.',
+        'I’ll use your latest care profile to make this answer personal. For persistent or severe symptoms, speak with a qualified clinician.':'برای پاسخ دقیق‌تر از آخرین پروفایل مراقبتی تو استفاده می‌کنم. در صورت تداوم یا شدت علائم، با پزشک متخصص مشورت کن.'
+      };
+      const faQs=[{q:'مهم‌ترین دغدغه پوستت چیست؟',a:['خشکی','حساسیت','ناهمگونی رنگ','خطوط ظریف']},{q:'موهایت بعد از شست‌وشو چه حالتی دارد؟',a:['نرم و متعادل','خشک یا وز','زود چرب می‌شود','ضعیف یا آسیب‌دیده']},{q:'پوست بدنت بیشتر به چه چیزی نیاز دارد؟',a:['آبرسانی عمیق','شست‌وشوی ملایم','لطافت و صافی','طراوت روزانه']},{q:'روتین مراقبتی روزانه‌ات چگونه است؟',a:['فقط مراحل اصلی','روتین صبح','صبح و شب','نیاز به شروع تازه دارم']}];
+      Object.assign(titles,{welcome:'شروع',consult:'مشاوره هوشمند',dashboard:'پروفایل مراقبتی',scan:'تحلیل هوشمند',routine:'پیشنهاد محصولات',chat:'مربی مراقبت',journey:'پیشرفت'});
+      qs.splice(0,qs.length,...faQs);qi=0;renderQ();
+      const tr=root=>{const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const k=n.nodeValue.trim();if(fa[k])n.nodeValue=n.nodeValue.replace(k,fa[k])}root.querySelectorAll?.('[placeholder]').forEach(e=>{if(e.placeholder==='Ask about your care routine…')e.placeholder='درباره روتین مراقبتی‌ات بپرس…'})};
+      tr(document.body);new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>n.nodeType===1?tr(n):n.nodeType===3&&fa[n.nodeValue.trim()]&&(n.nodeValue=fa[n.nodeValue.trim()])))).observe(document.body,{childList:true,subtree:true,characterData:true});
+      const s=document.createElement('style');s.textContent=`body{font-family:Tahoma,Arial,sans-serif}.intro,.nav-item,.question-card,.choice,.product-card,.why,.bubble,.insight,.month-card,.today-card,.profile-card{text-align:right}h1,.mobile-title,.welcome h2,.question-card h2,.greeting h2,.score-card h3,.routine-hero h2,.month-card h2,.today-card h3{font-family:Tahoma,Arial,sans-serif;letter-spacing:-.035em}.nav-item{grid-template-columns:26px 1fr 38px}.arrow{transform:scaleX(-1)}.product-card{grid-template-columns:31px 1fr 82px}.bubble.user{align-self:flex-start}.bubble.ai{align-self:flex-end}.composer{grid-template-columns:40px 1fr}.send{grid-column:1}.composer input{grid-column:2;grid-row:1}.eyebrow:before{order:2}`;document.head.appendChild(s);
+    }
   </script></body></html>
